@@ -27,10 +27,10 @@ spring:
         uri: lb://servicio-productos
         predicates:
           - Path=/api/productos/**
-          - Header= token, \d+
-          - Method=GET, POST
-          - Query=color, verde
-          - Cookie=color, rojo
+#          - Header= token, \d+
+#          - Method=GET, POST
+#          - Query=color, verde
+#          - Cookie=color, rojo
         filters:
           - name: CircuitBreaker
             args:
