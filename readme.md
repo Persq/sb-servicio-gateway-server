@@ -26,7 +26,13 @@ Then open the browser go to url http://localhost:9411/zipkin/ to monitor traces
 Steps:
 
 * Create database zipkin
-* Create user "zipkin" and add privilegy to insert, update,and delete
+* Create user "zipkin"
+    ---- Login ----
+    Auth Type: Standart
+    Limit to host: %
+    Pasword: zipkin
+    ---- Schema Privileges ----
+    insert, update, execute, show view and delete
 * Go to web and aply schema:
 - https://github.com/openzipkin/zipkin/blob/master/zipkin-storage/mysql-v1/src/main/resources/mysql.sql
 

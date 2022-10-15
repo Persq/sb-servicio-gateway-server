@@ -1,0 +1,84 @@
+version: '3.7'
+services:
+  zipkin-server:
+    container_name: zipkin-server
+    image: zipkin-server:v1
+    ports:
+      - "9411:9411"
+    restart: always
+    networks:
+      - springcloud
+    # depends_on: 
+    #   - mb-rabbitmq310
+    #   - bd-mysql8
+    environment: 
+      RABBIT_ADDRESSES: mb-rabbitmq310:5672
+      STORAGE_TYPE: mysql
+      MYSQL_USER: zipkin
+      MYSQL_PASS: zipkin
+      MYSQL_HOST: bd-mysql8
+  servicio-producto:
+    container_name: servicio-producto
+    image: servicio-producto:v1
+    # restart: always
+    networks:
+      - springcloud
+    # depends_on: 
+    #   - config-server
+    #   - servicio-eureka-server
+    #   - bd-mysql8
+  servicio-item:
+    container_name: servicio-item
+    image: servicio-item:v1
+    ports:
+      - "8002:8002"
+      - "8005:8005"
+      - "8007:8007"
+    restart: always
+    networks:
+      - springcloud
+    depends_on: 
+      # - config-server
+      # - servicio-eureka-server
+      - servicio-producto
+  servicio-usuario:
+    container_name: servicio-usuario
+    image: servicio-usuario:v1
+    # restart: always
+    networks:
+      - springcloud
+    # depends_on: 
+    #   - config-server
+    #   - servicio-eureka-server
+    #   - bd-postgres12
+  servicio-oauth:
+    container_name: servicio-oauth
+    image: servicio-oauth:v1
+    ports:
+      - "9100:9100"
+    # restart: always
+    networks:
+      - springcloud
+    depends_on: 
+      # - config-server
+      # - servicio-eureka-server
+      - servicio-usuario
+  servicio-scg-server:
+    container_name: servicio-scg-server
+    image: servicio-scg-server:v1
+    ports:
+      - "8090:8090"
+    # restart: always
+    networks:
+      - springcloud
+    depends_on: 
+      # - config-server
+      # - servicio-eureka-server
+      - servicio-producto
+      - servicio-item
+      - servicio-usuario
+      - servicio-oauth
+networks:
+  springcloud:
+    name: springcloud
+    driver: bridge

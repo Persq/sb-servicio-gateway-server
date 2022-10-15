@@ -1,0 +1,52 @@
+--------- mysql, postgresql, rabbitmq --------- 
+$ docker pull mysql:8
+$ docker pull postgres:12-alpine
+$ docker pull rabbitmq:3.10-management
+
+************* Ejecutar comandos "cmd" en la ruta origen del projecto *************  
+
+--------- zipkin ---------
+$ docker build -t zipkin-server:v1 .
+
+------------------------------------------------------
+* Puedes usar dos opciones para generar el .jar:
+mvn clean package -DskipTests (con maven global)
+.\mvnw clean package -DskipTests (con maven embebido)
+------------------------------------------------------
+
+--------- config-server ---------
+$ mvn clean package
+$ docker build -t config-server:v1 .
+
+--------- servicio-eureka-server ---------
+$ mvn clean package
+$ docker build -t servicio-eureka-server:v1 .
+
+--------- springboot-servicio-producto ---------
+$ mvn clean package -DskipTests
+$ docker build -t servicio-producto:v1 .
+
+---------springboot-servicio-gateway-server ---------
+$ mvn clean package -DskipTests
+$ docker build -t servicio-scg-server:v1 .
+
+--------- springboot-servicio-usuario ---------
+$ mvn clean package -DskipTests
+$ docker build -t servicio-usuario:v1 .
+
+---------springboot-servicio-oauth ---------
+$ mvn clean package -DskipTests
+$ docker build -t servicio-oauth:v1 .
+
+--------- springboot-servicio-item ---------
+$ mvn clean package -DskipTests
+$ docker build -t servicio-item:v1 .
+
+======================== Otros comandos ======================== 
+
+-detener y eliminar todos los contenedores:
+docker stop $(docker ps -q)
+docker rm $(docker ps -a -q)
+
+-eliminar todas las imagenes:
+docker rmi $(docker images -a -q)

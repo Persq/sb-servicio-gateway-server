@@ -1,0 +1,26 @@
+
+------------------------------------------------------
+* Asegurate de construir bien el archivo docker-compose.yml
+------------------------------------------------------
+
+
+Ejecutar la parte 01 completa
+$ docker compose -f docker-compose-01.yml up -d
+
+Ejecutar el proceso de "Create database 'zipkin' in MySql" (readme.md)
+
+Ejecutar la parte 02 por partes:
+$ docker compose -f docker-compose-02.yml up -d zipkin-server
+$ docker compose -f docker-compose-02.yml up -d servicio-producto
+$ docker compose -f docker-compose-02.yml up -d servicio-item
+$ docker compose -f docker-compose-02.yml up -d servicio-usuario
+$ docker compose -f docker-compose-02.yml up -d servicio-oauth
+$ docker compose -f docker-compose-02.yml up -d servicio-scg-server
+
+------------------------------------------------------
+Revisar el historial
+$ docker compose -f docker-compose-01.yml logs -f
+
+Borrar todos los objetos del contenedor
+$ docker compose -f docker-compose-01.yml rm
+------------------------------------------------------
